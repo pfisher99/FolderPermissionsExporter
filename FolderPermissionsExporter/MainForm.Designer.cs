@@ -101,7 +101,7 @@ namespace FolderPermissionsExporter
 			this.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "MainForm";
-			this.Text = "Form1";
+			this.Text = "FolderPerms";
 			this.Load += new System.EventHandler(this.MainForm_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
