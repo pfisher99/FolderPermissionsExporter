@@ -40,7 +40,7 @@ namespace FolderPermissionsExporter
 					MessageBox.Show("Complete! File: " + outputFileName);
 
 
-					System.Diagnostics.Process.Start("file://" + outputFileName);
+					//System.Diagnostics.Process.Start(@"file:///" + outputFileName);
 				}
 			}
 		}
