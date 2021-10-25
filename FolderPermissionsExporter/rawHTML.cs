@@ -48,6 +48,7 @@ transform: rotate(90deg);
 .nested
 {
 display: none;
+margin: auto;
 }
 
 
