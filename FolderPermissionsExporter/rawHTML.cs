@@ -71,13 +71,11 @@ display: block;
 
 .main
 {
-overflow: scroll;
 height: 100 %;
 width: 100 %;
-position: fixed;
 z-index: 1;
-overflow-x: hidden;
-padding-top: 20px;
+overflow-x: scroll;
+overflow-y: scroll;
 top: 0;
 left: 0;
 text-align: left;
