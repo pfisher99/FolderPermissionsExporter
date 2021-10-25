@@ -50,9 +50,11 @@ transform: rotate(90deg);
 display: none;
 }
 
+
 .info
 {
 display: none;
+border-style: groove;
 }
 
 .parent
