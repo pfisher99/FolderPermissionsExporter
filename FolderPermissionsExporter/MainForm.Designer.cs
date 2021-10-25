@@ -92,7 +92,7 @@ namespace FolderPermissionsExporter
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(569, 130);
+			this.ClientSize = new System.Drawing.Size(233, 134);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.labelStatus);
 			this.Controls.Add(this.labelSelectedFolder);
