@@ -68,8 +68,7 @@ namespace FolderPermissionsExporter
 				}
 				catch (Exception e)
 				{
-					MessageBox.Show(e.Message);
-					Application.Exit();
+					writeAccessDeniedDir(subDir, e.Message);
 				}
 			}
 
@@ -97,8 +96,7 @@ namespace FolderPermissionsExporter
 				}
 				catch (Exception e)
 				{
-					MessageBox.Show(e.Message);
-					Application.Exit();
+					writeAccessDeniedDir(subDir, e.Message);
 				}
 			}
 			writeCloseList();
@@ -152,7 +150,8 @@ namespace FolderPermissionsExporter
 			catch (Exception e)
 			{
 				MessageBox.Show(e.Message);
-			}
+			}				
+
 		}
 
 		private void writeTopLevelDir(DirectoryInfo dirInfo)
@@ -182,7 +181,11 @@ namespace FolderPermissionsExporter
 
 			catch (Exception e)
 			{
-				MessageBox.Show(e.Message);
+				using (StreamWriter sw = File.AppendText(outputFileName))
+				{
+					sw.WriteLine(rawHTML.DirHeader.Replace("(NameReplace:Me)", dirInfo.Name).Replace("(InfoReplace:Me)", e.Message));
+					sw.Close();
+				}
 			}
 		}
 		private void writeSubDir(DirectoryInfo dirInfo)
@@ -194,16 +197,14 @@ namespace FolderPermissionsExporter
 				using (StreamWriter sw = File.AppendText(outputFileName))
 				{
 
-
 					foreach (FileSystemAccessRule rule in dirInfo.GetAccessControl().GetAccessRules(true, true, typeof(System.Security.Principal.NTAccount)))
 					{
-
 						if (int.TryParse(rule.FileSystemRights.ToString(), out _)) { }
+
 						else
 						{
 							userPermissions = userPermissions + rule.IdentityReference.Value + ": " + rule.FileSystemRights.ToString() + @"</br>";
 						}
-
 					}
 
 
@@ -211,11 +212,25 @@ namespace FolderPermissionsExporter
 
 					sw.Close();
 				}
+				
 			}
 
 			catch (Exception e)
 			{
-				MessageBox.Show(e.Message);
+				using (StreamWriter sw = File.AppendText(outputFileName))
+				{
+					sw.WriteLine(rawHTML.DirHeader.Replace("(NameReplace:Me)", dirInfo.Name).Replace("(InfoReplace:Me)", e.Message));
+					sw.Close();
+				}
+			}
+		}
+		private void writeAccessDeniedDir(DirectoryInfo dirInfo, String err)
+		{
+			using (StreamWriter sw = File.AppendText(outputFileName)) 
+			{
+				sw.WriteLine(rawHTML.SubDirHeader.Replace("(NameReplace:Me)", dirInfo.Name).Replace("(InfoReplace:Me)", err));
+
+				sw.Close();
 			}
 		}
 	}
