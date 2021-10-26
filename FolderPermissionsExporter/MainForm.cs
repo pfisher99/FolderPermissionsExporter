@@ -35,10 +35,7 @@ namespace FolderPermissionsExporter
 				if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
 				{
 					startCollecting(fbd.SelectedPath);
-
-					
 					MessageBox.Show("Complete! File: " + outputFileName);
-
 
 					//System.Diagnostics.Process.Start(@"file:///" + outputFileName);
 				}
@@ -63,9 +60,9 @@ namespace FolderPermissionsExporter
 						writeTopLevelDir(subDir);
 						collectSubDirs(subDir);
 					}
-					else 
-					{ 
-						writeSubDir(subDir); 
+					else
+					{
+						writeSubDir(subDir);
 					}
 					writeCloseList();
 				}
@@ -92,8 +89,8 @@ namespace FolderPermissionsExporter
 						writeTopLevelDir(subDir);
 						collectSubDirs(subDir);
 					}
-					else 
-					{ 
+					else
+					{
 						writeSubDir(subDir);
 					}
 
@@ -117,7 +114,7 @@ namespace FolderPermissionsExporter
 					sw.Close();
 				}
 			}
-			
+
 			catch (Exception e)
 			{
 				MessageBox.Show(e.Message);
@@ -166,19 +163,16 @@ namespace FolderPermissionsExporter
 			{
 				using (StreamWriter sw = File.AppendText(outputFileName))
 				{
-					
-
-					foreach (FileSystemAccessRule rule in dirInfo.GetAccessControl().GetAccessRules(true,true, typeof(System.Security.Principal.NTAccount)))
+					foreach (FileSystemAccessRule rule in dirInfo.GetAccessControl().GetAccessRules(true, true, typeof(System.Security.Principal.NTAccount)))
 					{
 
 						if (int.TryParse(rule.FileSystemRights.ToString(), out _)) { }
-						else 
-						{ 
-							userPermissions = userPermissions + rule.IdentityReference.Value + ": " + rule.FileSystemRights.ToString() + @"</br>"; 
+						else
+						{
+							userPermissions = userPermissions + rule.IdentityReference.Value + ": " + rule.FileSystemRights.ToString() + @"</br>";
 						}
 
 					}
-
 
 					sw.WriteLine(rawHTML.DirHeader.Replace("(NameReplace:Me)", dirInfo.Name).Replace("(InfoReplace:Me)", userPermissions));
 
